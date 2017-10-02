@@ -1,0 +1,23 @@
+version: '2'
+services:
+  pyspark:
+    image: jupyter/pyspark-notebook
+    environment:
+      - GRANT_SUDO=yes
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./work:/home/jovyan/work
+      - ./mysql-connector-java-5.1.44/mysql-connector-java-5.1.44-bin.jar:/usr/local/spark/jars/mysql-connector-java-5.1.44-bin.jar
+  mysql:
+    image: mysql/mysql-server
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=db1
+      - MYSQL_USER=user1
+      - MYSQL_PASSWORD=123456
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysqldata:/var/lib/mysql
+      - ./data:/tmp/data
